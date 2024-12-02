@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "cosmocloud-deploy.fullname" . }}-test"
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  containers:
+    - name: test
+      image: curlimages/curl
+      command: ['sh', '-c']
+      args:
+        - |
+          echo "Testing backend service..."
+          curl http://backend-svc:8000 && echo "Backend service reachable"
+          
+          echo "Testing frontend service..."
+          curl -f http://frontend-svc:5175 || exit 1
+          echo "Frontend service test passed"
+          
+          echo "Testing redis service..."
+          (echo PING | nc redis-svc 6379) || exit 1
+          echo "Redis service test passed"
+  restartPolicy: Never
