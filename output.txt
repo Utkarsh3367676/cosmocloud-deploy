@@ -1,0 +1,28 @@
+D:\devops>helm status testapp    
+Error: release: not found
+
+D:\devops>helm install testapp ./cosmocloud-deploy --atomic --timeout 2m
+NAME: testapp
+LAST DEPLOYED: Mon Dec  2 21:55:26 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+
+D:\devops>
+D:\devops>helm test testapp
+NAME: testapp
+LAST DEPLOYED: Mon Dec  2 21:55:26 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE:     testapp-test
+Last Started:   Mon Dec  2 21:56:05 2024
+Last Completed: Mon Dec  2 21:56:10 2024
+Phase:          Succeeded
+
+D:\devops>kubectl get pods
+NAME                       READY   STATUS      RESTARTS   AGE
+backend-57f6d77d55-s9xnx   1/1     Running     0          54s
+frontend-55cc96596-kpvbq   1/1     Running     0          54s
+redis-6d5dcfd66b-5d46p     1/1     Running     0          54s
+testapp-test               0/1     Completed   0          16s
