@@ -19,10 +19,9 @@ cosmocloud-deploy/ -- This is your Helm chart
 ├── deployment-frontend.yaml
 └── deployment-redis.yaml
 
-## Prerequisites
+#output file 
+output.txt
 
-- Kubernetes 1.19+
-- Helm 3.0+
 
 ## Installation
 
